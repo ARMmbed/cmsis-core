@@ -34,6 +34,12 @@
 
 #include "cmsis.h"
 
+/* throw meaningful compiler error if yotta configuration is not provided */
+#if !defined(YOTTA_CFG_CMSIS_NVIC_USER_IRQ_OFFSET)      || !defined(YOTTA_CFG_CMSIS_NVIC_USER_IRQ_NUMBER) || \
+    !defined(YOTTA_CFG_CMSIS_NVIC_FLASH_VECTOR_ADDRESS) || !defined(YOTTA_CFG_CMSIS_NVIC_RAM_VECTOR_ADDRESS)
+#error "Missing yotta config definitions for NVIC parameters; please update your target or contact the target owner"
+#endif
+
 #define NVIC_USER_IRQ_OFFSET YOTTA_CFG_CMSIS_NVIC_USER_IRQ_OFFSET
 #define NVIC_USER_IRQ_NUMBER YOTTA_CFG_CMSIS_NVIC_USER_IRQ_NUMBER
 #define NVIC_NUM_VECTORS     (NVIC_USER_IRQ_OFFSET + NVIC_USER_IRQ_NUMBER)
