@@ -26,6 +26,9 @@
     "cmsis-core"
   ],
   "targetDependencies": {
+    "advantech": {
+        "cmsis-core-advantech": "0.0.1"
+    },
     "silabs": {
       "cmsis-core-silabs": "~0.1.0"
     },
