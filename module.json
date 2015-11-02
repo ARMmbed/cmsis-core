@@ -28,6 +28,9 @@
     "cmsis-core"
   ],
   "targetDependencies": {
+    "atmel": {
+      "cmsis-core-atmel": "~0.1.0"
+    },
     "silabs": {
       "cmsis-core-silabs": "~0.1.0"
     },
