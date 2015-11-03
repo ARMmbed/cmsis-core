@@ -42,6 +42,9 @@
     },
     "cordio": {
       "cmsis-core-cordio": "~0.0.2"
+    },
+    "nxp": {
+      "cmsis-core-nxp": "~0.1.0"
     }
   }
 }
