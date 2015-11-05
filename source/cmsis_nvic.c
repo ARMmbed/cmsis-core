@@ -43,7 +43,11 @@ void NVIC_SetVector(IRQn_Type IRQn, uint32_t vector)
     uint32_t i;
 
     /* Copy and switch to dynamic vectors if the first time called */
+#if defined(TARGET_JN517X)
+	if (SCB->VTOR != NVIC_RAM_VECTOR_ADDRESS) {
+#else
     if (SCB->VTOR == NVIC_FLASH_VECTOR_ADDRESS) {
+#endif
         uint32_t *old_vectors = vectors;
         vectors = (uint32_t *) NVIC_RAM_VECTOR_ADDRESS;
         for (i = 0; i < NVIC_NUM_VECTORS; i++) {
