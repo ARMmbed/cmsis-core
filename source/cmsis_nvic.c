@@ -60,8 +60,32 @@ uint32_t NVIC_GetVector(IRQn_Type IRQn)
     return vectors[IRQn + NVIC_USER_IRQ_OFFSET];
 }
 
+#elif defined(TARGET_LIKE_CORTEX_M0) || defined(TARGET_LIKE_CORTEX_M0PLUS)
+
+void NVIC_SetVector(IRQn_Type IRQn, uint32_t vector) {
+    int i;
+    // Space for dynamic vectors, initialised to allocate in R/W
+    static volatile uint32_t *vectors = (uint32_t *)NVIC_RAM_VECTOR_ADDRESS;
+    
+    // Copy and switch to dynamic vectors if first time called
+    if ((SYSCFG->CFGR1 & 0x03) == 0) {
+      uint32_t *old_vectors = (uint32_t *)NVIC_FLASH_VECTOR_ADDRESS;
+      for (i = 0; i < NVIC_NUM_VECTORS; i++) {
+          vectors[i] = old_vectors[i];
+      }
+      SYSCFG->CFGR1 |= 0x03; // Embedded SRAM mapped at 0x00000000
+    }
+    
+    vectors[IRQn + NVIC_USER_IRQ_OFFSET] = vector;
+}
+
+uint32_t NVIC_GetVector(IRQn_Type IRQn) {
+    uint32_t *vectors = (uint32_t*)NVIC_RAM_VECTOR_ADDRESS;
+    return vectors[IRQn + NVIC_USER_IRQ_OFFSET];
+}
+
 #elif !defined(YOTTA_CFG_CMSIS_NVIC_HAS_CUSTOM_VTOR)
 
 #error The target should define yotta config cmsis-nvic.has-vtor, or cmsis-nvic.has-custom-vtor + implement NVIC_SetVector/NVIC_GetVector
 
-#endif /* !defined(TARGET_LIKE_CORTEX_M0) && !defined(TARGET_LIKE_CORTEX_M0PLUS) */
+#endif
