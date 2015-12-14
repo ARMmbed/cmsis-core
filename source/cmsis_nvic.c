@@ -68,12 +68,12 @@ void NVIC_SetVector(IRQn_Type IRQn, uint32_t vector) {
     static volatile uint32_t *vectors = (uint32_t *)NVIC_RAM_VECTOR_ADDRESS;
     
     // Copy and switch to dynamic vectors if first time called
-    if ((SYSCFG->CFGR1 & 0x03) == 0) {
+    if ((SYSCFG->CFGR1 & SYSCFG_CFGR1_MEM_MODE) == 0) {
       uint32_t *old_vectors = (uint32_t *)NVIC_FLASH_VECTOR_ADDRESS;
       for (i = 0; i < NVIC_NUM_VECTORS; i++) {
           vectors[i] = old_vectors[i];
       }
-      SYSCFG->CFGR1 |= 0x03; // Embedded SRAM mapped at 0x00000000
+      SYSCFG->CFGR1 |= SYSCFG_CFGR1_MEM_MODE; // Embedded SRAM mapped at 0x00000000
     }
     
     vectors[IRQn + NVIC_USER_IRQ_OFFSET] = vector;
