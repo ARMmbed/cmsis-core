@@ -46,7 +46,7 @@
     "nuvoton": {
       "cmsis-core-nuvoton": "^1.0.0"
     },
-	"nxp": {
+    "nxp": {
       "cmsis-core-nxp": "~0.1.0"
     }
   }
