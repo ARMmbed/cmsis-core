@@ -54,6 +54,9 @@
     },
     "atmel": {
       "cmsis-core-atmel": "^1.0.0"
+    },
+    "metanoia": {
+      "cmsis-core-metanoia": "^1.0.0"
     }
   }
 }
