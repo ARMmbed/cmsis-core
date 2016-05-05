@@ -1,6 +1,6 @@
 {
   "name": "cmsis-core",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "CMSIS-Core",
   "keywords": [
     "cmsis",
@@ -54,6 +54,9 @@
     },
     "atmel": {
       "cmsis-core-atmel": "^1.0.0"
+    },
+    "ublox": {
+      "cmsis-core-ublox": "~0.1.0"
     }
   }
 }
