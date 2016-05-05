@@ -54,6 +54,9 @@
     },
     "atmel": {
       "cmsis-core-atmel": "^1.0.0"
+    },
+    "ublox": {
+      "cmsis-core-ublox": "^0.0.1"
     }
   }
 }
